@@ -7,9 +7,17 @@ export default function Form() {
     const [activity, setActivity] = useState({
         category: '',
         name: '',
-        calories: 0
+        calories: ''
     })
 
+    const handleChange = (e) => {
+      setActivity({
+        ...activity,                   // Mantiene lo que esta en el state. 
+        [e.target.id]: e.target.value  // Escribe en el state
+         
+      })
+   
+    }
 
   return (
     <form className="space-y-4 bg-white shadow p-10 rounded-lg">
@@ -19,6 +27,7 @@ export default function Form() {
             className="border border-slate-300 p-2 rounded-lg w-full bg-white"
             id="category"
             value={activity.category}
+            onChange={handleChange}
         >
             {categories.map(category => (
                 <option
@@ -39,6 +48,7 @@ export default function Form() {
              className="border border-slate-300 p-2 rounded-lg "
              placeholder="Ej. Food, Orange Juice, salad, exercise, bicycle."
              value={activity.name}
+             onChange={handleChange}
           />
        </div>
 
@@ -50,6 +60,7 @@ export default function Form() {
              className="border border-slate-300 p-2 rounded-lg "
              placeholder="Calories. ej. 300 or 500"
              value={activity.calories}
+             onChange={handleChange}
           />
        </div>
 
