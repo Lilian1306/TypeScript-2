@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
+import { v4 as uuidv4 } from 'uuid'
 import { Activity } from "../types"
 import { categories } from "../data/categories"
 import type { ActivityActions } from "../reducers/activity-reducer"
@@ -8,7 +9,8 @@ type FormProps = {
 }
 
 //Codigo para reducir o evitar estar repitiendo codigo. 
-const initialSate = {
+const initialSate : Activity = {
+  id: uuidv4(),
   category: 1,
   name: '',
   calories: 0
@@ -38,8 +40,11 @@ export default function Form({dispatch} : FormProps) {
 
       dispatch({ type: 'save-activity', payload: {newActivity: activity}})
 
-      // Esto codigo nos sirve para reiniciar el formulario. 
-      setActivity(initialSate)
+      // Esto codigo nos sirve para reiniciar el formulario y le estamos pasando un id unico
+      setActivity({
+        ...initialSate,
+        id: uuidv4()
+      })
 
     }
 
