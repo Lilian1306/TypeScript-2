@@ -17,9 +17,12 @@ export default function Form() {
       setActivity({
         ...activity,                   // Mantiene lo que esta en el state. 
         [e.target.id]: isNumberField ? +e.target.value : e.target.value  // Escribe en el state
-         
       })
-   
+    }
+
+    const isValidActivity = () => {
+       const { name, calories } = activity
+       return name.trim() !== '' && calories > 0
     }
 
   return (
@@ -69,8 +72,9 @@ export default function Form() {
 
        <input
          type="submit"
-         className="bg-gray-800 hover:bg-gray-900 w-full p-2 uppercase text-white cursor-pointer"
-         value='Save changes or save exercise'
+         className="bg-gray-800 hover:bg-gray-900 w-full p-2 uppercase text-white cursor-pointer disabled:opacity-20"
+         value={activity.category === 1 ? 'Guardar comida' : 'Guardar Ejercicio'}
+         disabled={!isValidActivity()}
        />
 
     </form>
