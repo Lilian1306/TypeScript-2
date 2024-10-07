@@ -7,14 +7,17 @@ type FormProps = {
   dispatch: Dispatch<ActivityActions>
 }
 
+//Codigo para reducir o evitar estar repitiendo codigo. 
+const initialSate = {
+  category: 1,
+  name: '',
+  calories: 0
+}
+
 
 export default function Form({dispatch} : FormProps) {
 
-    const [activity, setActivity] = useState<Activity>({
-        category: 1,
-        name: '',
-        calories: 0
-    })
+    const [activity, setActivity] = useState<Activity>(initialSate)
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
       const isNumberField = ['category', 'calories'].includes(e.target.id)
@@ -34,6 +37,9 @@ export default function Form({dispatch} : FormProps) {
       e.preventDefault()
 
       dispatch({ type: 'save-activity', payload: {newActivity: activity}})
+
+      // Esto codigo nos sirve para reiniciar el formulario. 
+      setActivity(initialSate)
 
     }
 
